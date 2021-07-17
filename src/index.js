@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Competencies from './Competencies';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Competencies />
   </React.StrictMode>,
   document.getElementById('root'),
 );

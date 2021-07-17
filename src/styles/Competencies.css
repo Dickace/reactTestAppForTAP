@@ -1,0 +1,130 @@
+ul{
+  padding:0;
+}
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto
+}
+
+.section-pd{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.column-icon{
+  -ms-flex: 0 0 8.333333%;
+  flex: 0 0 8.333333%;
+  max-width: 8.333333%;
+  display: flex;
+}
+.column-icon > img{
+  margin-left: auto;
+  margin-right: 5px;
+  height: 24px;
+  width: 24px;
+}
+.column-name{
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%
+}
+.column-lastname{
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%
+}
+.column-buttons{
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  display: flex;
+  justify-content:flex-end;
+}
+.column-full{
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%
+
+}
+.personGrid {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.person-container{
+  width: 70%;
+}
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.btn{
+  width: max-content;
+  font-size: 14px;
+  height: 24px;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.btn > img{
+  height: 24px;
+  width: 24px;
+}
+.btn-add {
+  background-color: cornflowerblue;
+  color: whitesmoke;
+}
+.btn-edit{
+  padding: 4px 2px 4px 4px;
+  border-radius: 4px 0 0 4px;
+  background-color: rgba(222,242,125,0.7);
+  border: 1px solid yellow;
+
+}
+.btn-delete{
+  border-radius: 0 4px 4px 0;
+  padding: 4px 4px 4px 2px;
+  background-color: rgba(237,109,109,0.7);
+  border: 1px solid red;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
