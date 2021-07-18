@@ -5,7 +5,7 @@ import AddPersonModal from '../ModalWidnows/AddPersonModal';
 
 const AddPerson = ({ data }) => {
   // eslint-disable-next-line no-unused-vars
-  const [showAddPersonModal, setShowAddPersonModal] = useState('');
+  const [showAddPersonModal, setShowAddPersonModal] = useState(false);
 
   const openAddPersonModal = () => {
     setShowAddPersonModal((prev) => !prev);

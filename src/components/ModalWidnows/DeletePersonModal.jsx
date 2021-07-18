@@ -56,7 +56,7 @@ DeletePersonModal.defaultProps = {
 };
 
 DeletePersonModal.propTypes = {
-  showDeletePersonModal: PropTypes.func,
+  showDeletePersonModal: PropTypes.bool,
   setShowDeletePersonModal: PropTypes.func,
   refreshData: PropTypes.func,
   id: PropTypes.number,

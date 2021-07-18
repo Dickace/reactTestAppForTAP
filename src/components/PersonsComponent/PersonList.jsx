@@ -13,7 +13,7 @@ const PersonList = ({ persons, data }) => (
     </li>
     {console.log(persons)}
     {persons.map(((item) => (
-      <PersonItem person={item} data={data} />
+      <PersonItem key={item.id} person={item} data={data} />
     )))}
   </ul>
 );
@@ -24,11 +24,11 @@ PersonList.defaultProps = {
 };
 
 PersonList.propTypes = {
-  persons: PropTypes.arrayOf(PropTypes.objectOf(
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.string,
-  )),
+  persons: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  })),
   data: PropTypes.func,
 };
 

@@ -60,13 +60,13 @@ const AddPersonModal = ({ showAddPersonModal, setShowAddPersonModal, refreshData
   );
 };
 AddPersonModal.defaultProps = {
-  showAddPersonModal: 'none',
+  showAddPersonModal: false,
   setShowAddPersonModal: 'none',
   refreshData: 'none',
 };
 
 AddPersonModal.propTypes = {
-  showAddPersonModal: PropTypes.func,
+  showAddPersonModal: PropTypes.bool,
   setShowAddPersonModal: PropTypes.func,
   refreshData: PropTypes.func,
 };

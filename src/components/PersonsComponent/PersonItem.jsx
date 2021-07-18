@@ -8,8 +8,8 @@ import DeletePersonModal from '../ModalWidnows/DeletePersonModal';
 import EditPersonModal from '../ModalWidnows/EditPersonModal';
 
 const PersonItem = ({ person, data }) => {
-  const [showDeletePersonModal, setShowDeletePersonModal] = useState('');
-  const [showEditPersonModal, setShowEditPersonModal] = useState('');
+  const [showDeletePersonModal, setShowDeletePersonModal] = useState(false);
+  const [showEditPersonModal, setShowEditPersonModal] = useState(false);
   const openDeletePersonModal = () => {
     setShowDeletePersonModal((prev) => !prev);
   };
@@ -54,7 +54,11 @@ PersonItem.defaultProps = {
 };
 
 PersonItem.propTypes = {
-  person: PropTypes.objectOf(PropTypes.number, PropTypes.string, PropTypes.string),
+  person: PropTypes.shape({
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }),
   data: PropTypes.func,
 };
 

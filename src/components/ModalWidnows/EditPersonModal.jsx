@@ -61,17 +61,21 @@ const EditPersonModal = ({
   );
 };
 EditPersonModal.defaultProps = {
-  showEditPersonModal: 'none',
+  showEditPersonModal: false,
   setShowEditPersonModal: 'none',
   refreshData: 'none',
   person: { id: 0, firstName: 'none', lastName: 'none' },
 };
 
 EditPersonModal.propTypes = {
-  showEditPersonModal: PropTypes.func,
+  showEditPersonModal: PropTypes.bool,
   setShowEditPersonModal: PropTypes.func,
   refreshData: PropTypes.func,
-  person: PropTypes.objectOf(PropTypes.number, PropTypes.string, PropTypes.string),
+  person: PropTypes.shape({
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }),
 };
 
 export default EditPersonModal;
