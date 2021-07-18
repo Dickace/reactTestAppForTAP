@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PersonItem from './PersonItem';
+import './style.css';
 
-const PersonList = ({ persons }) => (
+const PersonList = ({ persons, data }) => (
   <ul>
     <li className="personGrid">
       <div className="column-icon" />
@@ -12,13 +13,14 @@ const PersonList = ({ persons }) => (
     </li>
     {console.log(persons)}
     {persons.map(((item) => (
-      <PersonItem person={item} />
+      <PersonItem person={item} data={data} />
     )))}
   </ul>
 );
 
 PersonList.defaultProps = {
   persons: [{}],
+  data: 'none',
 };
 
 PersonList.propTypes = {
@@ -27,6 +29,7 @@ PersonList.propTypes = {
     PropTypes.string,
     PropTypes.string,
   )),
+  data: PropTypes.func,
 };
 
 export default PersonList;
