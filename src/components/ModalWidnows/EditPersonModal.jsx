@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import axios from 'axios';
-// eslint-disable-next-line no-unused-vars
+
 const EditPersonModal = ({
-  showEditPersonModal, setShowEditPersonModal, refreshData, person,
+  showEditPersonModal, setShowEditPersonModal, refreshData, person, toastMe,
 }) => {
   const [firstName, setFirstName] = useState(person.firstName);
   const [lastName, setLastName] = useState(person.lastName);
@@ -18,10 +18,14 @@ const EditPersonModal = ({
       lastName,
       id: 'null',
     }).then((response) => {
-      console.log(response.status.toString());
+      toastMe(response);
       closeEditPersonModal();
     }).catch((error) => {
-      console.log(error.response.data);
+      if (error.response) {
+        toastMe(error.response);
+      } else if (error.message === 'Network Error') {
+        toastMe({ status: 500 });
+      }
     });
   };
   const handleFirstNameChange = (event) => {
@@ -33,26 +37,20 @@ const EditPersonModal = ({
   return (
     <>
       {showEditPersonModal ? (
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        <div className="background" onClick={closeEditPersonModal}>
-          {/* eslint-disable-next-line max-len */}
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div className="modal-wrapper" onClick={(event) => { event.stopPropagation(); }}>
+        <div aria-hidden="true" aria-label="close" className="background" onClick={closeEditPersonModal}>
+          <div aria-hidden="true" aria-label="stop" className="modal-wrapper" onClick={(event) => { event.stopPropagation(); }}>
             <div className="modal-header">
               Вы уверены, что хотите удалить сотрудинка?
             </div>
-            {/* eslint-disable-next-line max-len */}
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div className="back-to-parent" onClick={closeEditPersonModal}>
-              Назад к списку
-            </div>
-            <input value={firstName} onChange={handleFirstNameChange} className="modal-input" type="text" placeholder="Введите имя сотрудника" />
-            <input value={lastName} onChange={handleLastNameChange} className="modal-input" type="text" placeholder="Введите фамилию сотрудника" />
-            {/* eslint-disable-next-line max-len */}
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-            <div onClick={editPersonRequest} className="btn btn-save">
-              Сохранить
+            <div className="modal-body">
+              <div aria-hidden="true" aria-label="close" className="back-to-parent" onClick={closeEditPersonModal}>
+                Назад к списку
+              </div>
+              <input value={firstName} onChange={handleFirstNameChange} className="modal-input" type="text" placeholder="Введите имя сотрудника" />
+              <input value={lastName} onChange={handleLastNameChange} className="modal-input" type="text" placeholder="Введите фамилию сотрудника" />
+              <div aria-hidden="true" aria-label="save" onClick={editPersonRequest} className="btn btn-save">
+                Сохранить
+              </div>
             </div>
           </div>
         </div>
@@ -65,6 +63,7 @@ EditPersonModal.defaultProps = {
   setShowEditPersonModal: 'none',
   refreshData: 'none',
   person: { id: 0, firstName: 'none', lastName: 'none' },
+  toastMe: 'none',
 };
 
 EditPersonModal.propTypes = {
@@ -76,6 +75,7 @@ EditPersonModal.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
   }),
+  toastMe: PropTypes.func,
 };
 
 export default EditPersonModal;

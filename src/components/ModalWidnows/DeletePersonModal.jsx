@@ -4,7 +4,7 @@ import './style.css';
 import axios from 'axios';
 // eslint-disable-next-line no-unused-vars
 const DeletePersonModal = ({
-  showDeletePersonModal, setShowDeletePersonModal, refreshData, id,
+  showDeletePersonModal, setShowDeletePersonModal, refreshData, id, toastMe,
 }) => {
   const closeDeletePersonModal = () => {
     setShowDeletePersonModal(false);
@@ -12,34 +12,32 @@ const DeletePersonModal = ({
   };
   const deletePersonRequest = () => {
     axios.delete(`http://localhost:3000/api/v1/person/${id.toString()}`).then((response) => {
-      console.log(response.status.toString());
+      toastMe(response);
       closeDeletePersonModal();
     }).catch((error) => {
-      console.log(error.response.data);
+      if (error.response) {
+        toastMe(error.response);
+      } else if (error.message === 'Network Error') {
+        toastMe({ status: 500 });
+      }
     });
   };
   return (
     <>
       {showDeletePersonModal ? (
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        <div className="background" onClick={closeDeletePersonModal}>
-          {/* eslint-disable-next-line max-len */}
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div className="modal-wrapper modal-delete" onClick={(event) => { event.stopPropagation(); }}>
+        <div aria-hidden="true" aria-label="close" className="background" onClick={closeDeletePersonModal}>
+          <div aria-hidden="true" aria-label="close" className="modal-wrapper modal-delete" onClick={(event) => { event.stopPropagation(); }}>
             <div className="modal-header">
               Вы уверены, что хотите удалить сотрудинка?
             </div>
-            <div className="modal-btnWrap">
-              {/* eslint-disable-next-line max-len */}
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-              <div className="btn btn-cancel" onClick={closeDeletePersonModal}>
-                Отмена
-              </div>
-              {/* eslint-disable-next-line max-len */}
-              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-              <div onClick={deletePersonRequest} className="btn btn-modal-delete">
-                Удалить
+            <div className="modal-body">
+              <div className="modal-btnWrap">
+                <div aria-hidden="true" aria-label="close" className="btn btn-cancel" onClick={closeDeletePersonModal}>
+                  Отмена
+                </div>
+                <div aria-hidden="true" aria-label="close" onClick={deletePersonRequest} className="btn btn-modal-delete">
+                  Удалить
+                </div>
               </div>
             </div>
           </div>
@@ -53,6 +51,7 @@ DeletePersonModal.defaultProps = {
   setShowDeletePersonModal: 'none',
   refreshData: 'none',
   id: 'undefined',
+  toastMe: 'none',
 };
 
 DeletePersonModal.propTypes = {
@@ -60,6 +59,7 @@ DeletePersonModal.propTypes = {
   setShowDeletePersonModal: PropTypes.func,
   refreshData: PropTypes.func,
   id: PropTypes.number,
+  toastMe: PropTypes.func,
 };
 
 export default DeletePersonModal;

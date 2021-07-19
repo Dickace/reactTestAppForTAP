@@ -5,20 +5,31 @@
     position: absolute;
     top:0;
     left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
 .modal-wrapper{
+    box-sizing: border-box;
     width: 60%;
     height: max-content;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     background: #fff;
     color: #000;
     border-radius: 10px;
+    animation: modalPopup 0.7s cubic-bezier(0,0,0.5,1.5);
 }
-
-.modal-wrapper >div{
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 4px solid grey;
+    border-radius: 0 0 10px 10px;
+}
+.modal-body >div{
     margin-bottom: 10px;
 }
 
@@ -48,31 +59,26 @@
     color: deepskyblue;
 }
 .modal-input{
-    border: 1px solid #fff;
-    outline: none;
+    border: 2px solid rgba(80,80,80,0.4);
+    border-radius: 5px;
     font-size: 16px;
     margin-bottom: 10px;
     margin-left: 20px;
     width: calc(100% - 40px);
-    transition: all 0.3s cubic-bezier(0,0,0.5,2);
+    transition: all 0.7s cubic-bezier(0,0,0.5,1.5);
     transition-property: border;
 }
 .modal-input:hover{
-    border: 1px solid rgba(80,80,80,0.8);
+    border: 2px solid rgba(80,80,80,1);
 }
 .modal-input:focus{
-    border: 1px solid rgba(80,80,80,0.8);
+    border: 2px solid rgba(80,80,80,1);
 }
-.btn-save{
+.btn-save {
     background: cornflowerblue;
     color: white;
-    margin-left: auto;
-    margin-right: 10px;
-    transition: all 0.3s cubic-bezier(0,0,0.5,2);
-    transition-property: background-color;
-}
-.btn-save:hover{
-    background-color: dodgerblue;
+    align-self: flex-end;
+    margin-right: 12px;
 }
 .modal-delete{
     max-width: 300px;
@@ -94,4 +100,23 @@
     justify-content: space-evenly;
     margin-top: 10px;
 
+}
+
+@keyframes modalPopup {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-webkit-keyframes modalPopup {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-o-keyframes modalPopup {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-moz-keyframes modalPopup {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }

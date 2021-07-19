@@ -41,16 +41,25 @@
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+
+}
+.pd-5{
     padding-top: 5px;
     padding-bottom: 5px;
 }
 .btn{
-    width: max-content;
+    align-self: flex-start;
     font-size: 14px;
     height: 24px;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
+    transition: all 0.3s cubic-bezier(0,0,0.5,2);
+    transition-property: background-color;
+}
+
+.btn:hover{
+    background-color: dodgerblue;
 }
 .btn > img{
     height: 24px;
@@ -72,4 +81,13 @@
     padding: 4px 4px 4px 2px;
     background-color: rgba(237,109,109,0.7);
     border: 1px solid red;
+}
+.darkBg{
+    background-color: rgba(80,80,80,0.25);
+}
+.personList > li::after{
+    width: 100%;
+    content: "";
+    display: block;
+    border-bottom: 2px solid rgba(80,80,80,0.4);
 }

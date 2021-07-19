@@ -3,8 +3,7 @@ import './style.css';
 import PropTypes from 'prop-types';
 import AddPersonModal from '../ModalWidnows/AddPersonModal';
 
-const AddPerson = ({ data }) => {
-  // eslint-disable-next-line no-unused-vars
+const AddPerson = ({ data, toastMe }) => {
   const [showAddPersonModal, setShowAddPersonModal] = useState(false);
 
   const openAddPersonModal = () => {
@@ -20,6 +19,7 @@ const AddPerson = ({ data }) => {
         showAddPersonModal={showAddPersonModal}
         setShowAddPersonModal={setShowAddPersonModal}
         refreshData={data}
+        toastMe={toastMe}
       />
     </>
   );
@@ -27,9 +27,11 @@ const AddPerson = ({ data }) => {
 
 AddPerson.defaultProps = {
   data: 'none',
+  toastMe: 'none',
 };
 
 AddPerson.propTypes = {
   data: PropTypes.func,
+  toastMe: PropTypes.func,
 };
 export default AddPerson;

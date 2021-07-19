@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import axios from 'axios';
-// eslint-disable-next-line no-unused-vars
-const AddPersonModal = ({ showAddPersonModal, setShowAddPersonModal, refreshData }) => {
+
+const AddPersonModal = ({
+  showAddPersonModal, setShowAddPersonModal, refreshData, toastMe,
+}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const closeAddPersonModal = () => {
@@ -23,35 +25,33 @@ const AddPersonModal = ({ showAddPersonModal, setShowAddPersonModal, refreshData
       firstName,
       lastName,
     }).then((response) => {
-      console.log(response.status.toString());
+      toastMe(response);
       closeAddPersonModal();
     }).catch((error) => {
-      console.log(error.response.data);
+      if (error.response) {
+        toastMe(error.response);
+      } else if (error.message === 'Network Error') {
+        toastMe({ status: 500 });
+      }
     });
   };
   return (
     <>
       {showAddPersonModal ? (
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        <div className="background" onClick={closeAddPersonModal}>
-          {/* eslint-disable-next-line max-len */}
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div className="modal-wrapper" onClick={(event) => { event.stopPropagation(); }}>
+        <div className="background" aria-hidden="true" aria-label="close" onClick={closeAddPersonModal}>
+          <div aria-hidden="true" aria-label="stopPang" className="modal-wrapper" onClick={(event) => { event.stopPropagation(); }}>
             <div className="modal-header">
               Создание сотрудника
             </div>
-            {/* eslint-disable-next-line max-len */}
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div className="back-to-parent" onClick={closeAddPersonModal}>
-              Назад к списку
-            </div>
-            <input value={firstName} onChange={handleFirstNameChange} className="modal-input" type="text" placeholder="Введите имя сотрудника" />
-            <input value={lastName} onChange={handleLastNameChange} className="modal-input" type="text" placeholder="Введите фамилию сотрудника" />
-            {/* eslint-disable-next-line max-len */}
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-            <div onClick={addPersonRequest} className="btn btn-save">
-              Сохранить
+            <div className="modal-body">
+              <div className="back-to-parent" aria-hidden="true" aria-label="close" onClick={closeAddPersonModal}>
+                Назад к списку
+              </div>
+              <input value={firstName} onChange={handleFirstNameChange} className="modal-input" type="text" placeholder="Введите имя сотрудника" required />
+              <input value={lastName} onChange={handleLastNameChange} className="modal-input" type="text" placeholder="Введите фамилию сотрудника" required />
+              <div onClick={addPersonRequest} aria-hidden="true" aria-label="save" className="btn btn-save">
+                Сохранить
+              </div>
             </div>
           </div>
         </div>
@@ -63,12 +63,14 @@ AddPersonModal.defaultProps = {
   showAddPersonModal: false,
   setShowAddPersonModal: 'none',
   refreshData: 'none',
+  toastMe: 'none',
 };
 
 AddPersonModal.propTypes = {
   showAddPersonModal: PropTypes.bool,
   setShowAddPersonModal: PropTypes.func,
   refreshData: PropTypes.func,
+  toastMe: PropTypes.func,
 };
 
 export default AddPersonModal;
