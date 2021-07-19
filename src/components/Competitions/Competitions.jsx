@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import './style.css';
@@ -11,7 +11,7 @@ function Competitions() {
   const [personData, setPersonData] = useState([]);
   const [toastList, setToastList] = useState([]);
 
-  const toastMe = useCallback((response) => {
+  const toastMe = (response) => {
     let toastProps = null;
     const array = new Uint8Array(1);
     const crypto = window.crypto || window.msCrypto;
@@ -62,29 +62,28 @@ function Competitions() {
         setToastList([]);
     }
     setToastList([...toastList, toastProps]);
-  }, [toastList]);
+  };
 
-  const data = useCallback(
-    () => {
-      axios.get('http://localhost:3000/api/v1/persons').then((response) => {
-        if (response.data) {
-          if (JSON.stringify(response.data) !== JSON.stringify(personData)) {
-            setPersonData(response.data);
-            toastMe(response);
-          }
+  const data = () => {
+    axios.get('http://localhost:3000/api/v1/persons').then((response) => {
+      if (response.data) {
+        if (JSON.stringify(response.data) !== JSON.stringify(personData)) {
+          setPersonData(response.data);
+          toastMe(response);
         }
-      }).catch((error) => {
-        if (error.response) {
-          toastMe(error.response);
-        } else if (error.message === 'Network Error') {
-          toastMe({ status: 500 });
-        }
-      });
-    }, [personData, toastMe],
-  );
+      }
+    }).catch((error) => {
+      if (error.response) {
+        toastMe(error.response);
+      } else if (error.message === 'Network Error') {
+        toastMe({ status: 500 });
+      }
+    });
+  };
+
   useEffect(() => {
     data();
-  }, [data]);
+  }, []);
 
   return (
     <section className="section-pd">
