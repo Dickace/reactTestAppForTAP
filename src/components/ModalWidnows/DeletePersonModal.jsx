@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import axios from 'axios';
-// eslint-disable-next-line no-unused-vars
+import API_URL from '../../ApiUrls.json';
+
 const DeletePersonModal = ({
   showDeletePersonModal, setShowDeletePersonModal, refreshData, id, toastMe,
 }) => {
@@ -11,7 +12,7 @@ const DeletePersonModal = ({
     refreshData();
   };
   const deletePersonRequest = () => {
-    axios.delete(`http://localhost:3000/api/v1/person/${id.toString()}`).then((response) => {
+    axios.delete(`${API_URL}/api/v1/person/${id.toString()}`).then((response) => {
       toastMe(response);
       closeDeletePersonModal();
     }).catch((error) => {

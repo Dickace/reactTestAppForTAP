@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import axios from 'axios';
+import API_URL from '../../ApiUrls.json';
 
 const AddPersonModal = ({
   showAddPersonModal, setShowAddPersonModal, refreshData, toastMe,
@@ -21,7 +22,7 @@ const AddPersonModal = ({
     setLastName(event.target.value);
   };
   const addPersonRequest = () => {
-    axios.post('http://localhost:3000/api/v1/person', {
+    axios.post(`${API_URL}/api/v1/person`, {
       firstName,
       lastName,
     }).then((response) => {

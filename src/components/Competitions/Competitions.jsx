@@ -6,6 +6,7 @@ import './style.css';
 import PersonList from '../PersonsComponent/PersonList';
 import AddPerson from '../PersonsComponent/AddPerson';
 import Toast from '../Toast/Toast';
+import API_URL from '../../ApiUrls.json';
 
 function Competitions() {
   const [personData, setPersonData] = useState([]);
@@ -65,7 +66,7 @@ function Competitions() {
   };
 
   const data = () => {
-    axios.get('http://localhost:3000/api/v1/persons').then((response) => {
+    axios.get(`${API_URL}/api/v1/persons`).then((response) => {
       if (response.data) {
         if (JSON.stringify(response.data) !== JSON.stringify(personData)) {
           setPersonData(response.data);
@@ -83,7 +84,6 @@ function Competitions() {
 
   useEffect(() => {
     data();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

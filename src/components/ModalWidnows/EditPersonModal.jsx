@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import axios from 'axios';
+import API_URL from '../../ApiUrls.json';
 
 const EditPersonModal = ({
   showEditPersonModal, setShowEditPersonModal, refreshData, person, toastMe,
@@ -13,7 +14,7 @@ const EditPersonModal = ({
     refreshData();
   };
   const editPersonRequest = () => {
-    axios.put(`http://localhost:3000/api/v1/person/${person.id.toString()}`, {
+    axios.put(`${API_URL}/api/v1/person/${person.id.toString()}`, {
       firstName,
       lastName,
       id: 'null',
